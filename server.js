@@ -2,15 +2,15 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import authRoutes from "./routes/auth.js";
 import tasksRoutes from "./routes/tasks.js";
 import profileRoutes from "./routes/profile.js";
-
-
-
 
 dotenv.config(); // Load .env file
 
 const app = express();
+app.use(express.json());
+
 app.use(cors({ origin: "https://task-flow-frontend-sooty.vercel.app", credentials: true }));
 
 app.use((req, res, next) => {
@@ -18,9 +18,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/tasks", tasksRoutes);
 app.use("/profile", profileRoutes);
@@ -36,8 +33,6 @@ app.get("/", (req, res) => {
   res.send("Backend running + MongoDB connected!");
 });
 
-import authRoutes from "./routes/auth.js";
-app.use("/auth", authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on http://localhost:${process.env.PORT}`);

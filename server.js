@@ -13,6 +13,12 @@ dotenv.config(); // Load .env file
 const app = express();
 app.use(cors({ origin: "https://task-flow-frontend-sooty.vercel.app", credentials: true }));
 
+app.use((req, res, next) => {
+  console.log(req.method, req.url, req.body);
+  next();
+});
+
+
 
 app.use(express.json());
 app.use("/auth", authRoutes);

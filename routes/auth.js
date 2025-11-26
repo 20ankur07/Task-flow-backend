@@ -25,8 +25,14 @@ router.post("/register", async (req, res) => {
 
     res.json({ message: "User registered", user });
   } catch (err) {
-    res.status(500).json({ message: "Server error", err });
-  }
+  console.error(err);
+  res.status(500).json({
+    message: err.message,
+    name: err.name,
+    errors: err.errors
+  });
+}
+
 });
 
 // GET PROFILE
@@ -68,8 +74,10 @@ router.post("/login", async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email }
     });
   } catch (err) {
-    res.status(500).json({ message: "Server error", err });
-  }
+  console.log(err.response?.data);
+  setError(err.response?.data?.message || "Request failed");
+}
+
 });
 
 export default router;

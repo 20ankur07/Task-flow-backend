@@ -11,7 +11,7 @@ import profileRoutes from "./routes/profile.js";
 dotenv.config(); // Load .env file
 
 const app = express();
-app.use(cors({ origin: ["http://localhost:3000", "http://192.168.1.34:3000"], credentials: true }));
+app.use(cors({ origin: "https://task-flow-frontend-sooty.vercel.app", credentials: true }));
 
 
 app.use(express.json());
